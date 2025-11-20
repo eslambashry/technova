@@ -20,9 +20,9 @@ export async function sendEmailService({
   })
 
   const emailInfo = await transporter.sendMail({
-    from: `"UAEMMAF " ${process.env.SMTP_USER}`,
+    from: `"Technoba " ${process.env.SMTP_USER}`,
     to: to ? to : '',
-    subject: subject ? subject : 'Home Designs Notification',
+    subject: subject ? subject : 'Contact Us Email',
     html: message ? message : '',
     attachments,
   })

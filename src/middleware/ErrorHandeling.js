@@ -18,28 +18,12 @@ export default function catchError(callBack) {
 
 
 export const globalResponse = (err, req, res, next) => {
-    if (err) {
-    //   console.log(req.validationErrors)
-    //   console.log("globalResponse");
-      
-      if (req.validationErrors) {
-        return res
-          .status(err['cause'] || 500)
-          .json({ error: req.validationErrors })
-      }
-      return res.status(err['cause'] || 500).json({ message: err.message })
-    }
+    const statusCode = err.statusCode || 500;
+
+  return res.status(statusCode).json({
+    success: false,
+    message: err.message || "Something went wrong",
+  });
   }
   
-  
-//   export const globalResponse = (err, req, res, next) => {
-//     if (err) {
-//         const statusCode = err.statusCode || err.cause || 500;
-        
-//         if (req.validationErrors) {
-//             return res.status(statusCode).json({ error: req.validationErrors });
-//         }
-        
-//         return res.status(statusCode).json({ message: err.message });
-//     }
-// };
+ 
