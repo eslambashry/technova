@@ -26,15 +26,15 @@ app.use(express.json());
 
 
 app.use('/api/v1/contact', contactRoute)
-app.use('/api/v1/blog', blogsRouter)
-app.use('/api/v1/auth', userRouter)
+app.use('/api/v1/blogs', blogsRouter)
+app.use('/api/v1/users', userRouter)
 db;
 
 const swaggerSpec = swaggerJSDoc({
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "UAEMMAF API Documentation",
+      title: "Technoba API Documentation  🚀",
       version: "1.0.0",
     },
   },
