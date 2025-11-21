@@ -1,4 +1,4 @@
-import { UserModel } from "../../DB/models/UserModel.js"
+import { UserModel } from "../../DB/models/userModel.js"
 import {generateToken, verifyToken} from "../../utilities/tokenFunctions.js"
 import { nanoid } from "nanoid"
 import pkg from 'bcrypt'

@@ -26,7 +26,7 @@ const contactRoute = Router();
  *               - name
  *               - email
  *               - message
- *              - phone
+ *               - phone
  *             properties:
  *               name:
  *                 type: string
