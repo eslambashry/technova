@@ -49,7 +49,10 @@ const blogsRouter = Router();
 
 blogsRouter.post(
   '/add',isAuth([systemRoles.ADMIN]),
-  multerCloudFunction(allowedExtensions.Image).array("image", 5),
+  multerCloudFunction(allowedExtensions.Image).fields([
+    { name: "images", maxCount: 5 },
+    { name: "authorImage", maxCount: 1 }
+  ]),
   BlogCon.createBlog
 );
 
@@ -125,7 +128,7 @@ blogsRouter.get('/:id', BlogCon.getOneBlogs);
  */
 blogsRouter.put(
   '/:id',isAuth([systemRoles.ADMIN]),
-  multerCloudFunction(allowedExtensions.Image).array("image", 5),
+  multerCloudFunction(allowedExtensions.Image).array("images", 5),
   BlogCon.updateBlog
 );
 
@@ -148,3 +151,7 @@ blogsRouter.put(
 blogsRouter.delete('/:id',isAuth([systemRoles.ADMIN]), BlogCon.deleteBlog);
 
 export default blogsRouter;
+
+
+
+ 

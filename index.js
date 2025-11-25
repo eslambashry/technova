@@ -2,14 +2,14 @@ import express from "express";
 import color from "@colors/colors"
 import cors from 'cors'
 import morgan from "morgan";
-import { db } from "./src/DB/dataBaseConnection.js";
 import contactRoute from "./src/modules/contact_us/contact.routes.js";
-import { globalResponse } from "./src/middleware/ErrorHandeling.js";
 import blogsRouter from "./src/modules/blogs/blogs.routes.js";
 import userRouter from "./src/modules/auth/auth.routes.js";
 import servicesRouter from "./src/modules/services/services.router.js";
 import path from "path";
 import swaggerJSDoc from "swagger-jsdoc";
+import { globalResponse } from "./src/middleware/ErrorHandeling.js";
+import { db } from "./src/DB/dataBaseConnection.js";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

@@ -21,6 +21,13 @@ const ServiceSchema = new Schema(
     // 🔥 SLUG
     slug: { type: String, required: true, unique: true },
 
+    icon: { type: String },
+    color: { type: String },
+
+    features: [{ 
+      feature_ar: String, 
+      feature_en: String
+    }],
     // 🔥 SHORT DESCRIPTION
     shortDescription_ar: { type: String },
     shortDescription_en: { type: String },

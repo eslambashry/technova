@@ -9,7 +9,24 @@ const blogsSchema = new Schema({
         ar:{ type: String, required: true },
         en:{ type: String, required: true }
     },
-    image: [{
+    author: { 
+        ar:{ type: String, required: true },
+        en:{ type: String, required: true }
+     },
+    autherJobTitle: { 
+        ar:{ type: String, required: true },
+        en:{ type: String, required: true }
+     },
+     category: {
+         ar:{ type: String, required: true },
+         en:{ type: String, required: true }
+        },
+    authorImage: {
+            imageLink:{type: String, required: true},
+            public_id:{type: String, required: true},
+        },
+    readTime: { type: Number, required: true },
+    images: [{
         imageLink:{type: String, required: true},
         public_id:{type: String, required: true},
     }],
