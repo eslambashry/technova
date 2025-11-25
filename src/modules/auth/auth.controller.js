@@ -65,7 +65,7 @@ export const login = async(req,res,next) => {
             role: userExsist.role
         },
         signature: process.env.SIGN_IN_TOKEN_SECRET ,
-        expiresIn: '1w',
+        expiresIn: '12h',
      })
      
 

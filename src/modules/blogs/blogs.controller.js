@@ -5,26 +5,46 @@ import CustomError from "../../utilities/customError.js"
 import imagekit from '../../utilities/imagekitConfigration.js';
 
 export const createBlog = async (req, res, next) => {
-    // console.log(req.body);
-    
-    const { title_ar, title_en, content_ar, content_en } = req.body;
- 
-    if (!title_ar || !title_en || !content_ar || !content_en) {
-        return next(new CustomError("Title and content are required", 400));
+  try {
+
+    const {
+      title_ar, title_en,
+      content_ar, content_en,
+      author_ar, author_en,
+      autherJobTitle_ar, autherJobTitle_en,
+      category_ar, category_en,readTime
+    } = req.body;
+
+    // Validate required fields
+    if (
+      !title_ar || !title_en ||
+      !content_ar || !content_en ||
+      !author_ar || !author_en ||
+      !autherJobTitle_ar || !autherJobTitle_en ||
+      !category_ar || !category_en
+    ) {
+      return next(new CustomError("All fields are required", 400));
     }
 
-    const imageFiles = req.files || [];
+    // Extract uploaded images
+    const imageFiles = req.files?.images || [];
     if (imageFiles.length === 0) {
-        return next(new CustomError("At least one image is required", 400));
+      return next(new CustomError("At least one image is required", 400));
     }
 
-  const customId = nanoid();
-  const uploadedImages = [];
+    // Extract author image
+    const authorImage = req.files?.authorImage?.[0] || null;
+    if (!authorImage) {
+      return next(new CustomError("Author image is required", 400));
+    }
 
-    // Upload image to ImageKit
-    for (const file of req.files) {
+    const customId = nanoid();
+    const uploadedImages = [];
+
+    // Upload blog images
+    for (const file of imageFiles) {
       const uploadResult = await imagekit.upload({
-        file: file.buffer, 
+        file: file.buffer,
         fileName: file.originalname,
         folder: `${process.env.PROJECT_FOLDER}/Blogs/${customId}`,
       });
@@ -35,27 +55,58 @@ export const createBlog = async (req, res, next) => {
       });
     }
 
+    // Upload author image
+    const uploadAuthorImage = await imagekit.upload({
+      file: authorImage.buffer,
+      fileName: authorImage.originalname,
+      folder: `${process.env.PROJECT_FOLDER}/Blogs/${customId}/Author`,
+    });
+
+    // Save blog to DB
     const newBlog = new BlogsModel({
       title: {
         ar: title_ar,
-        en: title_en
+        en: title_en,
       },
       content: {
         ar: content_ar,
-        en: content_en
+        en: content_en,
       },
-        customId,
-        image: uploadedImages,
+      author: {
+        ar: author_ar,
+        en: author_en,
+      },
+      autherJobTitle: {
+        ar: autherJobTitle_ar,
+        en: autherJobTitle_en,
+      },
+      readTime,
+      category: {
+        ar: category_ar,
+        en: category_en,
+      },
+      authorImage: {
+        imageLink: uploadAuthorImage.url,
+        public_id: uploadAuthorImage.fileId,
+      },
+      customId,
+      images: uploadedImages,
     });
 
     await newBlog.save();
 
     return res.status(201).json({
-        success: true,
-        message: "Blog created successfully",
-        blog: newBlog
+      success: true,
+      message: "Blog created successfully",
+      blog: newBlog,
     });
-}
+
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+};
+
 
 export const getAllBlogs = async (req, res, next) => {
     const blogs = await BlogsModel.find().sort({ createdAt: -1 });

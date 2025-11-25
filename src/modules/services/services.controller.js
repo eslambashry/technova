@@ -8,10 +8,15 @@ import imagekit, { destroyImage } from "../../utilities/imagekitConfigration.js"
 export const createService = async (req, res, next) => {
   
     console.log(req.body);
-
+  if (req.body["feature_ar."]) req.body.feature_ar = req.body["feature_ar."];
+  if (req.body["feature_en."]) req.body.feature_en = req.body["feature_en."];
     const {
       name_ar,
       name_en,
+      icon,
+      color,
+      feature_ar,
+      feature_en,
       shortDescription_ar,
       shortDescription_en,
       description_ar,
@@ -63,6 +68,14 @@ export const createService = async (req, res, next) => {
       name_ar,
       name_en,
       slug,
+      icon,
+      color,
+    features: feature_ar && feature_en
+      ? feature_ar.map((fa, index) => ({
+          feature_ar: fa,
+          feature_en: feature_en[index] || "",
+        }))
+      : [],
       shortDescription_ar,
       shortDescription_en,
       description_ar,
@@ -75,6 +88,9 @@ export const createService = async (req, res, next) => {
       aggregateRating_reviewCount: aggregateRating_reviewCount || 0, 
       customId,
     });
+    
+    console.log(newService);
+    
 
     await newService.save();
 
