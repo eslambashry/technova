@@ -208,7 +208,18 @@ export const deleteService= async (req, res, next) => {
     const services = await serviceModel.find({ _id: { $in: ids } });
     if (services.length === 0) {
       return next(new CustomError("No services found for the provided IDs", 404));
-    }}
+    }
+    for (const service of services) {
+      service.images.forEach(async (image) => {
+        await destroyImage(image.public_id);
+      });
+      await serviceModel.findByIdAndDelete(service._id);
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Services deleted successfully",
+    });
+  }
 
 
 // ~ Create Review 
