@@ -150,7 +150,7 @@ servicesRouter.put(
 servicesRouter.delete("/:id",servicesCon.deleteService);
 
 
-servicesRouter.delete("/multy",servicesCon.multyDeleteServices);
+servicesRouter.post("/multy",servicesCon.multyDeleteServices);
 
 
 

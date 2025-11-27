@@ -48,7 +48,7 @@ const blogsRouter = Router();
 
 
 blogsRouter.post(
-  '/add',isAuth([systemRoles.ADMIN]),
+  '/add',
   multerCloudFunction(allowedExtensions.Image).fields([
     { name: "images", maxCount: 5 },
     { name: "authorImage", maxCount: 1 }
@@ -127,7 +127,7 @@ blogsRouter.get('/:id', BlogCon.getOneBlogs);
  *         description: Blog updated successfully
  */
 blogsRouter.put(
-  '/:id',isAuth([systemRoles.ADMIN]),
+  '/:id',
   multerCloudFunction(allowedExtensions.Image).array("images", 5),
   BlogCon.updateBlog
 );
@@ -148,7 +148,7 @@ blogsRouter.put(
  *       200:
  *         description: Blog deleted successfully
  */
-blogsRouter.delete('/:id',isAuth([systemRoles.ADMIN]), BlogCon.deleteBlog);
+blogsRouter.delete('/:id', BlogCon.deleteBlog);
 
 export default blogsRouter;
 

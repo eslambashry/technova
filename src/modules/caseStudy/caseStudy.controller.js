@@ -31,24 +31,24 @@ const values = req.body["status.value"];
 const labelsEn = req.body["status.label_en"];
 const labelsAr = req.body["status.label_ar"];
 
+console.log(values);
+console.log(labelsEn);
+console.log(labelsAr);
 
 
-console.log(values.length);
 
-const valuesArr = Array.isArray(values) ? values : [values];
-const labelsEnArr = Array.isArray(labelsEn) ? labelsEn : [labelsEn];
-const labelsArArr = Array.isArray(labelsAr) ? labelsAr : [labelsAr];
+if (!values || !labelsEn || !labelsAr) {
+  return next(new CustomError("Status fields are required", 400));
+}
+console.log(status.value);
 
-console.log(valuesArr.length);
-
-for (let i = 0; i < valuesArr.length; i++) {
+for (let i = 0; i < values.length; i++) {
   status.push({
-    value: valuesArr[i],
-    label_en: labelsEnArr[i],
-    label_ar: labelsArArr[i],
+    value: values[i],
+    label_en: labelsEn[i],
+    label_ar: labelsAr[i],
   });
 }
-
     const customId = nanoid();
 
     // Validate images
