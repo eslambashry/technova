@@ -12,13 +12,13 @@ import { globalResponse } from "./src/middleware/ErrorHandeling.js";
 import { db } from "./src/DB/dataBaseConnection.js";
 import { fileURLToPath } from "url";
 import caseStudyRouter from "./src/modules/caseStudy/caseStudy.routes.js";
+import careerRouter from "./src/modules/jobs/jobs.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT
-
+const port = process.env.PORT;
 
 app.use(cors());
 
@@ -30,6 +30,7 @@ app.use('/api/v1/blogs', blogsRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/services', servicesRouter)
 app.use('/api/v1/case_study', caseStudyRouter)
+app.use('/api/v1/career', careerRouter)
 db;
 
 const swaggerSpec = swaggerJSDoc({

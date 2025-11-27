@@ -17,9 +17,6 @@ const careersSchema = new Schema({
     responsibilities_en: { type: String },
     howToApply_ar: { type: String },
     howToApply_en: { type: String },
-    
-
-    customId: { type: String }
 },{ timestamps: true })
 
 export const careerModel = model("Career",careersSchema)

@@ -30,7 +30,7 @@ const blogsSchema = new Schema({
         imageLink:{type: String, required: true},
         public_id:{type: String, required: true},
     }],
-    customId: { type: String, required: true, unique: true },
+    customId: { type: String, required: true},
 },{ timestamps: true })
 
 export const BlogsModel = model("Blogs", blogsSchema);
