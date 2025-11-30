@@ -50,6 +50,12 @@ servicesRouter.post(
     multerCloudFunction(allowedExtensions.Image).array("images", 5),
     servicesCon.createService
     );
+    
+servicesRouter.put(
+    "/:id",
+    multerCloudFunction(allowedExtensions.Image).array("images", 5),
+    servicesCon.updateService
+);
 
 /**
  * @swagger
@@ -123,11 +129,7 @@ servicesRouter.get("/:id",servicesCon.getServiceById);
  *         description: Service updated successfully
  */
 
-servicesRouter.put(
-    "/:id",
-    multerCloudFunction(allowedExtensions.Image).array("images", 5),
-    servicesCon.updateService
-);
+
 
 /**
  * @swagger

@@ -33,10 +33,10 @@ export const createBlog = async (req, res, next) => {
     }
 
     // Extract author image
-    const authorImage = req.files?.authorImage?.[0] || null;
-    if (!authorImage) {
-      return next(new CustomError("Author image is required", 400));
-    }
+    // const authorImage = req.files?.authorImage?.[0] || null;
+    // if (!authorImage) {
+    //   return next(new CustomError("Author image is required", 400));
+    // }
 
     const customId = nanoid();
     const uploadedImages = [];
@@ -56,11 +56,11 @@ export const createBlog = async (req, res, next) => {
     }
 
     // Upload author image
-    const uploadAuthorImage = await imagekit.upload({
-      file: authorImage.buffer,
-      fileName: authorImage.originalname,
-      folder: `${process.env.PROJECT_FOLDER}/Blogs/${customId}/Author`,
-    });
+    // const uploadAuthorImage = await imagekit.upload({
+    //   file: authorImage.buffer,
+    //   fileName: authorImage.originalname,
+    //   folder: `${process.env.PROJECT_FOLDER}/Blogs/${customId}/Author`,
+    // });
 
     // Save blog to DB
     const newBlog = new BlogsModel({
@@ -159,7 +159,7 @@ export const updateBlog = async (req, res, next) => {
             public_id: uploadResult.fileId,
           });
         }
-        blog.image = uploadedImages;
+        blog.images = uploadedImages;
     }
     await blog.save();
 

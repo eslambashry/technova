@@ -129,7 +129,10 @@ blogsRouter.get('/:id', BlogCon.getOneBlogs);
  */
 blogsRouter.put(
   '/:id',
-  multerCloudFunction(allowedExtensions.Image).array("images", 5),
+  multerCloudFunction(allowedExtensions.Image).fields([
+    { name: "images", maxCount: 5 },
+    { name: "authorImage", maxCount: 1 }
+  ]),
   BlogCon.updateBlog
 );
 

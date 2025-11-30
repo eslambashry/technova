@@ -169,6 +169,9 @@ export const updateService = async (req, res, next) => {
           public_id: uploadResult.fileId,
         });
       }
+
+          service.images = uploadedImages;
+
       console.log("Last");
       
     await service.save();

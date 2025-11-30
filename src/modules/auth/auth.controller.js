@@ -267,7 +267,7 @@ export const logout = async (req, res, next) => {
     }
 
     const code = nanoid()
-    const hashcode = pkg.hashSync(code, process.env.SALT_ROUNDS) // ! process.env.SALT_ROUNDS
+    const hashcode = pkg.hashSync(code, +process.env.SALT_ROUNDS) // ! process.env.SALT_ROUNDS
     const token = generateToken({
         payload:{
             email,
@@ -276,7 +276,7 @@ export const logout = async (req, res, next) => {
         signature: process.env.RESET_TOKEN, // ! process.env.RESET_TOKEN
         expiresIn: '1h',
     })
-    const resetPasswordLink = `${req.protocol}://${req.headers.host}/auth/reset/${token}`
+    const resetPasswordLink = `${req.protocol}://${req.headers.host}/user/reset/${token}`
     const isEmailSent = sendEmailService({
         to:email,
         subject: "Reset Password",

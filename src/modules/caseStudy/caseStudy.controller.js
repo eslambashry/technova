@@ -131,6 +131,7 @@ export const updateCaseStudy = async (req, res, next) => {
             public_id: uploadResult.fileId,
         };
     }
+    
     await caseStudy.save();
 
     return  res.status(200).json({

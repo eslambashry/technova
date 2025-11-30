@@ -44,7 +44,6 @@ const userRouter = Router();
  */
 userRouter.post('/register', userCon.register);
 
-
 /**
  * @swagger
  * /api/v1/users/login:
@@ -177,8 +176,8 @@ userRouter.put(
 userRouter.delete('/:id', userCon.deleteUser);
 
 userRouter.post('/forget',userCon.forgetPassword)
-
 userRouter.post('/reset/:token',userCon.resetPassword)
+
 userRouter.post('/change_password',userCon.changePassword)
 userRouter.post('/multy',userCon.multyDeleteUsers)
 
